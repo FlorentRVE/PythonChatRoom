@@ -7,10 +7,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
-#===== Initier le dictionnaire rooms =====
+#===== Initier le dictionnaire rooms qui contiendra les différentes rooms ===== 
+# et les informations sur ces rooms : 'messages' et 'member'
 rooms = {}
 
-#========== Génération du code unique pour chaque room ======
+#====================== Génération du code unique pour chaque room ==============
 def generate_unique_code(length):
     while True:
         code = ""
@@ -21,7 +22,7 @@ def generate_unique_code(length):
             break
     return code
 
-# ================ ROUTES =================
+# ===================================== ROUTES ==================================
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -59,7 +60,11 @@ def room():
     
     return render_template('room.html', code=room, messages=rooms[room]["messages"])
 
-#============== Gestion socketio =============
+#========================= Gestion des messages dans socketio =============
+
+# A la réception d'un message émis par un client, on récupère l'id de la room, puis
+# on créer un dictionnaire 'content' avec les informations du message.
+# Ensuite on l'ajoute dans la liste des messages de la room et on l'envoi à la room correspondante.
 
 @socketio.on('message')
 def message(data):
@@ -75,6 +80,15 @@ def message(data):
     rooms[rooms["messages"]].append(content)
     print(f"{session.get('name')} said: {data['data']}")
     
+
+#============== Gestion des connexions / Déconnexions socketio =============
+
+#================= CONNECT ]
+# A chaque connexion, on récupère l'id de la room et le nom de l'utilisateur via la session.
+# On vérifie si la room existe dans la liste des rooms sinon on quitte la room. 
+# Si elle existe on rejoint avc join_room() en affichant un message indiquant que l'utilisateur est entré dans la room.
+# Enfin on met à jour le nombre de membres de la room.
+
 @socketio.on('connect')
 def connect(auth):
     room = session.get("room")
@@ -89,6 +103,13 @@ def connect(auth):
     rooms[room]["members"] += 1
     print(f"{name} has entered {room}")
 
+#================ DISCONNECT ]
+# On récupère l'id de la room et le nom de l'utilisateur via la session.
+# On quitte la room correspondante avec leave_room()
+# On vérifie si la room existe dans la liste, si oui on décrémente le nombre de membre de 1
+# et si le nombres de membres est inférieur ou égal à zéro on supprimme tout simplement la room
+# On affiche un message indiquant que l'utilisateur a quitté la room.
+
 @socketio.on('disconnect')
 def disconnect():
     room = session.get("room")
@@ -102,7 +123,11 @@ def disconnect():
     
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left {room}")
+
 # ===========================================
+
+# Si le fichier Python est exécuté directement ( et non importé), on lance le serveur
+# debug=True active le mode débogage pour afficher les erreurs.
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
