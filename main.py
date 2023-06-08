@@ -11,7 +11,7 @@ socketio = SocketIO(app)
 # et les informations sur ces rooms : 'messages' et 'member'
 rooms = {}
 
-#====================== Génération du code unique pour chaque room ==============
+#====================== Génération aléatoire du code unique pour chaque room ==============
 def generate_unique_code(length):
     while True:
         code = ""
@@ -24,6 +24,10 @@ def generate_unique_code(length):
 
 # ===================================== ROUTES ==================================
 
+# ===================================== '/' ==================================
+# Si la requete est GET, on affiche la page d'accueil
+# Si la requete est POST, on récupére les informations du formulaire. On rejoins une room si le code est valide.
+# ou on en créer une si le code est fourni par l'utilisateur.
 @app.route('/', methods=['GET', 'POST'])
 def home():
     session.clear()
@@ -52,6 +56,9 @@ def home():
 
     return render_template('home.html')
 
+# ===================================== '/room' ==================================
+# Si la requete est GET, on affiche la page de la room sauf s'il n'y a pas de room ou de nom
+# dans ce cas, on affiche la page d'accueil
 @app.route('/room')
 def room():
     room = session.get("room")

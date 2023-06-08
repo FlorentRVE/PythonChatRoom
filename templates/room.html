@@ -10,8 +10,13 @@
     </div>
 </div>
 
+
+<!-- Script Javascript pour la gestion des messages -->
 <script src="{{url_for('static', filename='script/script.js')}}"></script>
 
+
+<!-- Boucle permettant de récupérer et d'afficher tous les messages
+même après un refresh page -->
 {% for msg in messages %}
 
     <script type="text/javascript">
@@ -19,5 +24,6 @@
     </script>
 
 {% endfor %}
+<!-- Fin de la boucle -->
 
 {% endblock %}

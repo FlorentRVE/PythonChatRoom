@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <form method="post" class="form">
     <h3>Enter the Chat room</h3>
     <div>
@@ -13,8 +14,11 @@
     </div>
     <button type="submit" name="create" class="create-btn">Create a room</button>
 
+
+    <!-- Affichage des erreurs -->
     {% if error %}
     <p>{{error}}</p>
     {% endif %}
 </form>
+
 {% endblock %}
