@@ -9,7 +9,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 2rem;
+
+    background-color: rgb(94, 249, 99);
+    padding: 2rem;
+    padding-bottom: 4rem;
+    border-radius: 15px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .join {
@@ -74,19 +81,41 @@ h2 {
 
 button {
     margin-left: 5px;
-    padding: 5px;
+    padding: 10px;
     background-color: rgb(0, 174, 255);
     border-radius: 15px;
     text-transform: uppercase;
     font-weight: bolder;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 input {
     border-radius: 15px;
+    padding: 10px;
 }
 
 label, h3 {
     color: rgb(0, 140, 205);
     font-weight: bolder;
     text-transform: uppercase;
+}
+
+.back-btn {
+    margin-left: 5px;
+    padding: 5px;
+    background-color: rgb(206, 75, 75);
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.error {
+    color: red;
+    text-transform: uppercase;
+}
+
+.pseudo {
+    font-weight: bold;
 }

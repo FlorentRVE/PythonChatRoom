@@ -10,11 +10,11 @@ const messages = document.getElementById('messages');
 
 // Fonction permettant la création du corps du message avec les variables 'name' et 'msg'
 // Puis de l'ajouter dans le DOM 
-const createMessage = (name, msg) => {
+const createMessage = (name, msg, colour) => {
     const content = `
     <div class="text">
         <span>
-            <strong>${name}</strong>: ${msg}
+            <span class="pseudo" style = "color: ${colour}">${name}</span>: ${msg}
         </span>
         <span class="muted">
             ${new Date().toLocaleString()}
@@ -28,7 +28,7 @@ const createMessage = (name, msg) => {
 // On écoute l'évenement 'message'. Quand on reçoit un nouveau message,avec les datas qui l'accompagne
 // on l'ajoute au DOM en construisant un nouveau message grâce à la fonction précédente 
 socketio.on('message', (data) => {
-    createMessage(data.name, data.message);
+    createMessage(data.name, data.message, data.colour);
 });
 
 // =========================================================================================
@@ -43,7 +43,7 @@ const sendMessage = () => {
     message.value = "";
 }
 
-// ===================Ajout de l'event listener sur la touche Entrer pour envoyer un message ==============
+// =================== Ajout de l'event listener sur la touche Entrer pour envoyer un message ==============
 document.addEventListener('keypress', (event)=>{
 
 if(event.keyCode === 13) {
@@ -52,3 +52,10 @@ if(event.keyCode === 13) {
 }
     
 });
+
+// =================== Ajout de la fonction de deconnexion =========================
+
+const disconnect = () => {
+    socketio.disconnect();
+    location.href = '/';
+}

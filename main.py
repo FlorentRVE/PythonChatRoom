@@ -34,6 +34,7 @@ def home():
     if request.method == "POST":
         name = request.form.get('name')
         code = request.form.get('code')
+        colour = request.form.get('colour')
         join = request.form.get('join', False)
         create = request.form.get('create', False)
 
@@ -52,6 +53,7 @@ def home():
 
         session["room"] = room
         session["name"] = name
+        session["colour"] = colour
         return redirect(url_for('room'))
 
     return render_template('home.html')
@@ -81,7 +83,8 @@ def message(data):
     
     content= {
         "name": session.get("name"),
-        "message": data["data"]
+        "message": data["data"],
+        "colour": session.get("colour")
     }
     send(content, to=room)
     rooms[room["messages"]].append(content)
