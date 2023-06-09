@@ -42,3 +42,13 @@ const sendMessage = () => {
     socketio.emit('message', { data: message.value });
     message.value = "";
 }
+
+// ===================Ajout de l'event listener sur la touche Entrer pour envoyer un message ==============
+document.addEventListener('keypress', (event)=>{
+
+if(event.keyCode === 13) {
+
+    sendMessage();
+}
+    
+});

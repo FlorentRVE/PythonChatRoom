@@ -84,7 +84,7 @@ def message(data):
         "message": data["data"]
     }
     send(content, to=room)
-    rooms[rooms["messages"]].append(content)
+    rooms[room["messages"]].append(content)
     print(f"{session.get('name')} said: {data['data']}")
     
 
@@ -105,6 +105,7 @@ def connect(auth):
     if room not in rooms:
         leave_room(room)
         return
+    
     join_room(room)
     send({"name": name, "message": "has entered the room"}, to=room)
     rooms[room]["members"] += 1

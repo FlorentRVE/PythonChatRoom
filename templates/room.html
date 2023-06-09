@@ -5,25 +5,12 @@
     <h2>Chat room: {{code}}</h2>
     <div class="messages" id="messages"></div>
     <div class="inputs">
-        <input type="text" rows="3" placeholder="Write a message" id="message" name="message"/>
-        <button type="button" name="send" id="send-btn" onClick="sendMessage()">Envoyer</button>
+        <input type="text" rows="3" placeholder=" Ecrivez votre messsage" id="message" name="message"/>
+        <button type="button" name="send" id="send-btn" class="send-btn" onClick="sendMessage()">Envoyer</button>
     </div>
 </div>
 
-
 <!-- Script Javascript pour la gestion des messages -->
 <script src="{{url_for('static', filename='script/script.js')}}"></script>
-
-
-<!-- Boucle permettant de récupérer et d'afficher tous les messages
-même après un refresh page -->
-{% for msg in messages %}
-
-    <script type="text/javascript">
-        createMessage('{{msg.name}}', '{{msg.message}}');
-    </script>
-
-{% endfor %}
-<!-- Fin de la boucle -->
 
 {% endblock %}

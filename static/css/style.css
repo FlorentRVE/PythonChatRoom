@@ -27,7 +27,7 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 15px;
-    background-color: antiquewhite;
+    background-color: rgb(152, 223, 147);
     height: 80vh;
     display: flex;
     flex-direction: column;
@@ -48,11 +48,13 @@
 
 h2 {
     text-align: center;
+    color:  rgb(0, 140, 205);
 
 }
 
 #message {
     flex: 1;
+    border-radius: 15px;
 }
 
 .text {
@@ -67,5 +69,24 @@ h2 {
 
 .muted {
     font-size: 10px;
-    color: coral;
+    color: blue;
+}
+
+button {
+    margin-left: 5px;
+    padding: 5px;
+    background-color: rgb(0, 174, 255);
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+input {
+    border-radius: 15px;
+}
+
+label, h3 {
+    color: rgb(0, 140, 205);
+    font-weight: bolder;
+    text-transform: uppercase;
 }
